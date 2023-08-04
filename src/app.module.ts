@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ResetModule } from './reset/reset.module';
+import { EmailModule } from './email/email.module';
 
 @Module({
   imports: [
@@ -19,7 +20,8 @@ import { ResetModule } from './reset/reset.module';
       // entities: [],
       synchronize: true,
     }),
-    ResetModule,],
+    ResetModule,
+    EmailModule,],
   controllers: [AppController],
   providers: [AppService],
 })
