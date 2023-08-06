@@ -17,5 +17,5 @@ export class EmailController {
       throw new BadRequestException(err, 'Error: mail sending is failed' );
     }
 
-}
+  }
 }
