@@ -16,7 +16,7 @@ import { MailerModule } from '@nestjs-modules/mailer';
       defaults: {
         from: 'no-replay@localhost.com',
       },
-    })
+    }),
   ],
   providers: [ResetService],
   controllers: [ResetController],

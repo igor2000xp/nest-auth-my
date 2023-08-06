@@ -1,4 +1,10 @@
-import { CallHandler, ExecutionContext, Injectable, NestInterceptor, UnauthorizedException } from '@nestjs/common';
+import {
+  CallHandler,
+  ExecutionContext,
+  Injectable,
+  NestInterceptor,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { JwtService } from '@nestjs/jwt';
 
@@ -13,8 +19,8 @@ export class AuthInterceptor implements NestInterceptor {
       if (!this.jwtService.verify(jwt)) {
         throw new UnauthorizedException();
       }
-    } catch(err) {
-      throw  new UnauthorizedException();
+    } catch (err) {
+      throw new UnauthorizedException();
     }
 
     return next.handle();

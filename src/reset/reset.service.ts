@@ -10,7 +10,7 @@ export class ResetService {
     @InjectRepository(ResetEntity) private readonly resetRepository: Repository<ResetEntity>
   ) {}
 
-  async  create(reset: Reset): Promise<Reset> {
+  async create(reset: Reset): Promise<Reset> {
     return await this.resetRepository.save(reset);
   }
 }

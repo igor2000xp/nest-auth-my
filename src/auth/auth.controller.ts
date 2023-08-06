@@ -7,7 +7,7 @@ import {
   Post,
   Req,
   Res,
-  UseInterceptors
+  UseInterceptors,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import * as bcrypt from 'bcrypt';
@@ -20,15 +20,9 @@ import { AuthInterceptor } from './auth.interceptor';
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller()
 export class AuthController {
-  constructor(
-    private authService: AuthService,
-    private jwtService: JwtService,
-  ) {
-  }
+  constructor(private authService: AuthService, private jwtService: JwtService) {}
   @Post('register')
-  async register(
-    @Body() body: RegisterDto
-  ) {
+  async register(@Body() body: RegisterDto) {
     if (body.password !== body.password_confirm) {
       throw new BadRequestException('Password do not match');
     }
@@ -37,7 +31,7 @@ export class AuthController {
     let user: User;
     try {
       user = await this.authService.create(body);
-      user = await this.authService.findOneBy({id: user.id});
+      user = await this.authService.findOneBy({ id: user.id });
     } catch (err) {
       throw new BadRequestException(`Error ${err}`);
     }
@@ -48,7 +42,7 @@ export class AuthController {
   async login(
     @Body('email') email: string,
     @Body('password') password: string,
-    @Res({ passthrough: true }) response: Response,
+    @Res({ passthrough: true }) response: Response
   ) {
     let user: User;
     try {
@@ -57,35 +51,30 @@ export class AuthController {
       throw new BadRequestException(`Eroor find ${err}`);
     }
 
-
     if (!user) {
       throw new BadRequestException('Email does not exist');
     }
 
-    if (!await bcrypt.compare(password, user.password)) {
+    if (!(await bcrypt.compare(password, user.password))) {
       throw new BadRequestException('Invalid credentials');
     }
 
-    const jwt = await this.jwtService.signAsync({id: user.id});
-    response.cookie('jwt', jwt, {httpOnly: true});
+    const jwt = await this.jwtService.signAsync({ id: user.id });
+    response.cookie('jwt', jwt, { httpOnly: true });
     return user;
   }
   @UseInterceptors(AuthInterceptor)
   @Get('user')
-  async user(
-    @Req() request: Request,
-  ) {
+  async user(@Req() request: Request) {
     const cookie = request.cookies['jwt'];
     const data = await this.jwtService.verifyAsync(cookie);
 
-    return await this.authService.findOneBy({id: data['id']});
+    return await this.authService.findOneBy({ id: data['id'] });
   }
 
   @UseInterceptors(AuthInterceptor)
   @Post('logout')
-  async logout(
-    @Res({passthrough: true}) response: Response
-  ) {
+  async logout(@Res({ passthrough: true }) response: Response) {
     await response.clearCookie('jwt');
 
     return { message: ' Success' };
