@@ -9,18 +9,4 @@ export class SendEmailDto {
   @IsEmail({}, { message: 'Email is incorrect' })
   @IsString({ message: 'Email must be string' })
   to: string;
-
-  // @ApiProperty({
-  //   example: 'Change password TWSend',
-  //   description: 'Subject of the customer email',
-  // })
-  // @IsString({ message: 'subject must be string' })
-  // subject?: string;
-  //
-  // @ApiProperty({
-  //   example: 'Change password request',
-  //   description: 'Text of the customer email',
-  // })
-  // @IsString({ message: 'text must be string' })
-  // text?: string;
 }
