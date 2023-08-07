@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ResetModule } from './reset/reset.module';
 import { EmailModule } from './email/email.module';
 import { MailerModule } from '@nestjs-modules/mailer';
+// import { SendGridModule } from '@ntegral/nestjs-sendgrid';
 
 @Module({
   imports: [
@@ -21,16 +22,20 @@ import { MailerModule } from '@nestjs-modules/mailer';
       // entities: [],
       synchronize: true,
     }),
-    MailerModule.forRoot({
-      transport: {
-        host: 'smtp.sendgrid.net',
-        port: 587,
-        auth: {
-          user: 'apikey',
-          pass: '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',
-        },
-      },
-    }),
+    // SendGridModule.forRoot({
+    //   apiKey: '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',
+    // }),
+
+    // MailerModule.forRoot({
+    //   transport: {
+    //     host: 'smtp.sendgrid.net',
+    //     port: 587,
+    //     auth: {
+    //       user: 'apikey',
+    //       pass: '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',
+    //     },
+    //   },
+    // }),
     ResetModule,
     EmailModule,
   ],
