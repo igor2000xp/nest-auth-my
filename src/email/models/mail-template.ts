@@ -7,15 +7,15 @@
 
 // import { Message } from 'emailjs';
 
-export const clientData = {
-  user: 'power.rangers.backend@gmail.com',
-  password: 'zeibvdcfocuubfbb',
-  host: 'smtp.gmail.com',
-  port: 587,
-  // tls: true,
-};
+// export const clientData = {
+//   user: 'power.rangers.backend@gmail.com',
+//   password: 'zeibvdcfocuubfbb',
+//   host: 'smtp.gmail.com',
+//   port: 587,
+//   // tls: true,
+// };
 
-export const messageData = {
+export const mailTemplate = {
   text: 'Welcome NestJS Email Sending Tutorial',
   from: 'power.rangers.backend@gmail.com',
   to: 'power.rangers.backend@gmail.com',

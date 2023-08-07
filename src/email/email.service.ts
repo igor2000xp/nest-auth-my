@@ -1,27 +1,18 @@
 import { Injectable } from '@nestjs/common';
-import { SendEmailDto } from './dto/send-email.dto';
-// import { mailTemplate } from './models/mail-template';
-// import { MailerService } from '@nestjs-modules/mailer';
-import { clientData, messageData } from './models/mail-template';
-// import { SMTPClient } from 'emailjs';
-import * as emailjs from 'emailjs';
-
+import { ResetEmailDto } from './dto/reset-email.dto';
+import { mailTemplate } from './models/mail-template';
+import { MailerService } from '@nestjs-modules/mailer';
 
 @Injectable()
 export class EmailService {
-  private readonly client: SMTPClient;
-  constructor() {
-    this.client = new SMTPClient(clientData);
-  }
+  constructor(
+    private readonly mailerService: MailerService,
+  ) {}
 
-  async refreshPasswordRequest(dto: SendEmailDto) {
-    const email = { ...messageData};
-    email.to = dto.to;
+  async refreshPasswordRequest(dto: ResetEmailDto) {
+    const email = { ...mailTemplate, ...dto};
     try {
-
-      // await this.client.connect();
-      return await this.client.sendAsync(messageData);
-      // return email;
+      return await this.mailerService.sendMail(email);
     } catch (err) {
       return `Error sending email ${err}`;
     }

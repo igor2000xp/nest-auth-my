@@ -5,7 +5,7 @@ import { AuthModule } from './auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ResetModule } from './reset/reset.module';
 import { EmailModule } from './email/email.module';
-// import { MailerModule } from '@nestjs-modules/mailer';
+import { MailerModule } from '@nestjs-modules/mailer';
 
 @Module({
   imports: [
@@ -21,16 +21,16 @@ import { EmailModule } from './email/email.module';
       // entities: [],
       synchronize: true,
     }),
-    // MailerModule.forRoot({
-    //   transport: {
-    //     host: 'smtp.gmail.com',
-    //     port: 587,
-    //     auth: {
-    //       user: 'power.rangers.backend@gmail.com',
-    //       pass: 'zeibvdcfocuubfbb',
-    //     },
-    //   },
-    // }),
+    MailerModule.forRoot({
+      transport: {
+        host: 'smtp.sendgrid.net',
+        port: 587,
+        auth: {
+          user: 'apikey',
+          pass: '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',
+        },
+      },
+    }),
     ResetModule,
     EmailModule,
   ],
