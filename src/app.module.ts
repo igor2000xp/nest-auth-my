@@ -27,7 +27,7 @@ import { MailerModule } from '@nestjs-modules/mailer';
         port: 587,
         auth: {
           user: 'apikey',
-          pass: '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',
+          pass: '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',
         },
       },
     }),
